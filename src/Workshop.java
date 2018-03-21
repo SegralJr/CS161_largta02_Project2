@@ -8,16 +8,11 @@ public class Workshop {
 	boolean[][] mirror; // Represents current generation, true/false for living/dead squares
 	boolean[][] allFalse; // False array used for comparison
 	
-	ArrayList<boolean[][]> history;
+	ArrayList<boolean[][]> history = new ArrayList<boolean[][]>();
 	
 	int rows, columns; // Grid dimensions
 	
-	int minLifeToLife, maxLifeToLife, minDeadToLife, maxDeadToLife; // Life paramaters
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	int minLifeToLife, maxLifeToLife, minDeadToLife, maxDeadToLife; // Life parameters
 	
 	public Workshop(int r, int col) {
 		rows = r;
@@ -25,7 +20,7 @@ public class Workshop {
 	}
 	
 	public void resetMirror() {
-		boolean[][] mirror = new boolean[rows][columns];
+		mirror = new boolean[rows][columns];
 	}
 	
 	public void resetHistory() {
@@ -115,6 +110,7 @@ public class Workshop {
 	
 	public void nextGeneration() {
 		int aliveNeighbors = 0;
+		
 		history.add(mirror);
 		finished = false;
 		boolean[][] next = new boolean[rows][columns];

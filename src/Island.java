@@ -53,8 +53,8 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	private void enableBoard(boolean flag) {
-		for(int k = 0; k <= population.length; k++) {
-			for(int j = 0; j <=population.length; j++) {
+		for(int k = 0; k < population.length; k++) {
+			for(int j = 0; j < population.length; j++) {
 				population[k][j].setEnabled(flag);
 			}
 		}
@@ -77,7 +77,7 @@ public class Island extends JFrame implements ActionListener {
 		//center.setBackground(Color.LIGHT_GRAY);
 		
 		markLabel = new JLabel("Click for marking initial life");
-		nextLabel = new JLabel("See the nexgt generation");
+		nextLabel = new JLabel("See the next generation");
 		resetLabel = new JLabel("Reset the game");
 		northField = new JTextField("");
 		
@@ -109,6 +109,13 @@ public class Island extends JFrame implements ActionListener {
 		markButton.addActionListener(this);
 		nextButton.addActionListener(this);
 		resetButton.addActionListener(this);
+		
+		// Population action listener
+		for(int k = 0; k < population.length; k++) {
+			for(int j = 0; j < population.length; j++) {
+				population[k][j].addActionListener(this);
+			}
+		}
 
 		setVisible(true);
 	}
@@ -127,23 +134,73 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
+		JButton source = (JButton) event.getSource();
+		if(source.getBackground() == Color.LIGHT_GRAY) {
+			source.setBackground(Color.YELLOW);
+		}
+		else if(source.getBackground() == Color.YELLOW) {
+			source.setBackground(Color.LIGHT_GRAY);
+		}
+		else if(source.getText() == "Mark") {
+			enableBoard(true);
+			nextButton.setEnabled(true);
+			shop.resetHistory();
+		}
+		else if(source.getText() == "Next") {
+			enableBoard(false);
+			markButton.setEnabled(false);
+			shop.resetMirror();
+			
+			for(int k = 0; k < population.length; k++) {
+				for(int j = 0; j < population.length; j++) {
+					if(population[k][j].getBackground() == Color.YELLOW) {
+						shop.mirror[k][j] = true;
+					}
+					else if(population[k][j].getBackground() == Color.LIGHT_GRAY) {
+						shop.mirror[k][j] = false;
+					}
+				}
+			}
+			
+			shop.nextGeneration();
+			northField.setText(shop.message);
+			displayGeneration(shop.mirror);
+			if(shop.finished == true) {
+				nextButton.setEnabled(false);
+			}
+			
+		}
+		else if(source.getText() == "Reset") {
+			shop.resetHistory();
+			northField.setText("");
+			resetBoard();
+		}
 		
 	}
 
 }
 
-class ButtonListener implements ActionListener {
+class ButtonListener extends Island implements ActionListener {
 	
-	public void actionPerformed(ActionEvent event) {
-		if("Mark".equals(event.getActionCommand())) {
-			
+	public ButtonListener(int rows, int columns, Workshop shop) {
+		super(rows, columns, shop);
+		// TODO Auto-generated constructor stub
+	}
+
+	public void actionPerformed(ActionEvent event2) {
+		if("Mark".equals(event2.getActionCommand())) {
+			System.out.println("Mark button pressed");
 		}
-		else if("Next".equals(event.getActionCommand())) {
-			
+		else if("Next".equals(event2.getActionCommand())) {
+			System.out.println("Next button pressed");
 		}
-		else if("Reset".equals(event.getActionCommand())) {
-			
+		else if("Reset".equals(event2.getActionCommand())) {
+			System.out.println("Reset button pressed");
 		}
+		System.out.println("A button was pressed");
+		
+		// When we did the lab over this I was told to just use one ActionListener in the original class instead of doing this?
+		// It's honestly the only way I know how to do it, I can't get this second class listener to work.
 	}
 	
 }
