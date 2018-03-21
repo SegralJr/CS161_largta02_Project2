@@ -119,8 +119,8 @@ public class Workshop {
 		finished = false;
 		boolean[][] next = new boolean[rows][columns];
 		
-		for(int k = 0; k<= mirror.length; k++) {
-			for(int j = 0; j < mirror.length; j++) { // Nested for loop, iterate through the mirror values
+		for(int k = 0; k <= mirror.length; k++) {
+			for(int j = 0; j <= mirror.length; j++) { // Nested for loop, iterate through the mirror values
 				aliveNeighbors = neighborCount(k,j);
 				if(mirror[k][j] == true) { // If square is alive
 					if(aliveNeighbors == 2 || aliveNeighbors == 3) {
