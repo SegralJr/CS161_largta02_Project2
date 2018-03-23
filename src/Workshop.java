@@ -24,13 +24,14 @@ public class Workshop {
 	}
 	
 	public void resetHistory() {
+		history = new ArrayList<boolean[][]>();
 		history.clear();
 	}
 	
 	private boolean isAlive(int k, int j) {
 		boolean alive = false;
-		if(k < mirror.length || j < mirror.length) {
-			if (mirror[k][j] == true) {
+		if(k < mirror.length && j < mirror.length || k >= 0 || j >= 0) {
+			if (mirror[k][j] == true || k >= 0 || j >= 0) {
 				alive = true;
 			}
 		}
@@ -43,30 +44,7 @@ public class Workshop {
 	private int neighborCount(int k, int j) {
 		int count = 0;
 		
-		if(isAlive(k-1,j-1) == true) {
-			count++;
-		}
-		if(isAlive(k-1, j) == true) {
-			count++;
-		}
-		if(isAlive(k-1, j+1) == true) {
-			count++;
-		}
-		if(isAlive(k, j-1) == true) {
-			count++;
-		}
-		if(isAlive(k, j+1) == true) {
-			count++;
-		}
-		if(isAlive(k+1, j-1) == true) {
-			count++;
-		}
-		if(isAlive(k+1, j) == true) {
-			count++;
-		}
-		if(isAlive(k+1, j+1) == true) {
-			count++;
-		}
+		
 		
 		return count;
 	}
@@ -74,8 +52,8 @@ public class Workshop {
 	private boolean equals(boolean[][] arrA, boolean[][] arrB) {
 		boolean tf = false;
 		
-		for(int k = 0; k <= arrA.length || k <= arrB.length; k++) {
-			for(int j = 0; j <= arrA.length || j <= arrB.length; j++) {
+		for(int k = 0; k < arrA.length || k < arrB.length; k++) {
+			for(int j = 0; j < arrA.length || j < arrB.length; j++) {
 				if(arrA[k][j] == arrB[k][j]) {
 					tf = true;
 					if(tf == false) { // Basically a break statement, if one false statement then whole search ends and returns false
@@ -90,8 +68,8 @@ public class Workshop {
 	
 	private int listPositionOf(boolean[][] target) {
 		int position = 0, counter = 1;
-		for(int k = 0; k <= target.length; k++) {
-			for(int j = 0; j <= target.length; j++) {
+		for(int k = 0; k < target.length; k++) {
+			for(int j = 0; j < target.length; j++) {
 				if(target[k][j] == mirror[k][j]) {
 					counter = 1;
 				}
@@ -115,8 +93,8 @@ public class Workshop {
 		finished = false;
 		boolean[][] next = new boolean[rows][columns];
 		
-		for(int k = 0; k <= mirror.length; k++) {
-			for(int j = 0; j <= mirror.length; j++) { // Nested for loop, iterate through the mirror values
+		for(int k = 0; k < mirror.length; k++) {
+			for(int j = 0; j < mirror.length; j++) { // Nested for loop, iterate through the mirror values
 				aliveNeighbors = neighborCount(k,j);
 				if(mirror[k][j] == true) { // If square is alive
 					if(aliveNeighbors == 2 || aliveNeighbors == 3) {

@@ -25,7 +25,7 @@ public class Island extends JFrame implements ActionListener {
 		super(">>>>> LIFE GAME BOARD <<<<<");
 		
 		// Initializes shop
-		shop = new Workshop(rows,columns);
+		this.shop = new Workshop(rows,columns);
 		
 		// Sets frame parameters
 		setSize(800,450);
@@ -61,8 +61,8 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	private void resetBoard() {
-		for(int k = 0; k <= population.length; k++) {
-			for(int j = 0; j <= population.length; j++) {
+		for(int k = 0; k < population.length; k++) {
+			for(int j = 0; j < population.length; j++) {
 				population[k][j].setBackground(Color.LIGHT_GRAY); 
 			}
 		}
