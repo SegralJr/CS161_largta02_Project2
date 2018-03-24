@@ -44,48 +44,30 @@ public class Workshop {
 	private int neighborCount(int k, int j) {
 		int count = 0;
 		
-			if(k >= 1 && j >= 1) {
-				if(isAlive((k-1), (j-1)) == true || j >= 1 || k >= 1) {
-					count++;
-				}
-			}
-			if(k >= 1) {
-				if(isAlive((k-1), j) == true || j >= 0 || k >= 1) {
-					count++;
-				}
-			}
-			if(k >= 1&& j < 3) {
-				if(isAlive((k-1), j+1) == true || j >= 0 || k >= 1) {
-					count++;
-				}
-			}
-			if(j >= 1) {
-				if(isAlive(k, (j-1)) == true || j >= 1 || k >= 0) {
-					count++;
-				}
-			}
-			if(j <= 2) {
-				if(isAlive(k, j+1) == true || j >= 0 || k >= 0) {
-					count++;
-				}
-			}
-			if(k <= 2 && j >= 1) {
-				if(isAlive(k+1, (j-1)) == true || j >= 1 || k >= 0) {
-					count++;
-				}
-			}
-			if(k <= 2) {
-				if(isAlive(k+1, j) == true || j >= 0 || k >= 0) {
-					count++;
-				}
-			}
-			if(k <= 2 && j <= 2) {
-				if(isAlive(k+1, j+1) == true || j >= 0 || k >= 0) {
-					count++;
-				}
-			
+		if(isAlive(k-1,j-1) == true) {
+			count++;
 		}
-
+		if(isAlive(k-1, j) == true) {
+			count++;
+		}
+		if(isAlive(k-1, j+1) == true) {
+			count++;
+		}
+		if(isAlive(k, j-1) == true) {
+			count++;
+		}
+		if(isAlive(k, j+1) == true) {
+			count++;
+		}
+		if(isAlive(k+1, j-1) == true) {
+			count++;
+		}
+		if(isAlive(k+1, j) == true) {
+			count++;
+		}
+		if(isAlive(k+1, j+1) == true) {
+			count++;
+		}
 		
 		return count;
 	}
@@ -134,26 +116,31 @@ public class Workshop {
 		finished = false;
 		boolean[][] next = new boolean[rows][columns];
 		
-		for(int k = 0; k < mirror.length; k++) {
-			for(int j = 0; j < mirror.length; j++) { // Nested for loop, iterate through the mirror values
-				aliveNeighbors = neighborCount(k,j);
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) { // Nested for loop, iterate through the mirror values
+				aliveNeighbors = neighborCount(k, j);
+				System.out.println(k + ", " + j + "= " + mirror[k][j] + "with " + aliveNeighbors + " neighbors");
+				
 				if(mirror[k][j] == true) { // If square is alive
-					if(aliveNeighbors == 2 || aliveNeighbors == 3) {
-						next[k][j] = true;
+					if(aliveNeighbors == 2 || aliveNeighbors == 3) { // If two or three living neighbors
+						next[k][j] = true; // Remains alive
 					}
-					else if(aliveNeighbors < 2) {
-						next[k][j] = false;
+					else if(aliveNeighbors < 2) { // If fewer than two living neighbors
+						next[k][j] = false; // Dies of loneliness
+						System.out.println("(" + k + ", " + j + ") died of loneliness");
 					}
-					else if(aliveNeighbors >= 4) {
-						next[k][j] = false;
+					else if(aliveNeighbors >= 4) { // If four or more living neighbors
+						next[k][j] = false; // Dies of overpopulation
+						System.out.println("(" + k + ", " + j + ") died of overpopulation");
 					}
 				}
-				else if(mirror[k][j] == false) {
-					if(aliveNeighbors == 2 || aliveNeighbors == 3) {
-						next[k][j] = true;
+				
+				else if(mirror[k][j] == false) { // If square is dead
+					if(aliveNeighbors == 2 || aliveNeighbors == 3) { // If exactly two or three living neighbors
+						next[k][j] = true; // Comes to life
 					}
-					else {
-						next[k][j] = false;
+					else { // If any other cases
+						next[k][j] = false; // Remains dead
 					}
 				}
 				
