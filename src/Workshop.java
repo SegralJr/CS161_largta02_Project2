@@ -3,20 +3,25 @@ import java.util.ArrayList;
 
 public class Workshop {
 	
+	int rows, columns; // Grid dimensions
+	
 	String message; // Output of game outcome
 	boolean finished; // True if game ends
 	boolean[][] mirror; // Represents current generation, true/false for living/dead squares
-	boolean[][] allFalse; // False array used for comparison
+	boolean[][] allFalse = new boolean[rows][columns]; // False array used for comparison
 	
 	ArrayList<boolean[][]> history = new ArrayList<boolean[][]>();
-	
-	int rows, columns; // Grid dimensions
 	
 	int minLifeToLife, maxLifeToLife, minDeadToLife, maxDeadToLife; // Life parameters
 	
 	public Workshop(int r, int col) {
 		rows = r;
 		columns = col;
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
+				allFalse = new boolean[k][j];
+			}
+		}
 	}
 	
 	public void resetMirror() {
@@ -119,25 +124,31 @@ public class Workshop {
 		for(int k = 0; k < rows; k++) {
 			for(int j = 0; j < columns; j++) { // Nested for loop, iterate through the mirror values
 				aliveNeighbors = neighborCount(k, j);
+				//System.out.println("(" + k + ", " + j + ")");
 				
 				if(mirror[k][j] == true) { // If square is alive
 					if(aliveNeighbors == 2 || aliveNeighbors == 3) { // If two or three living neighbors
 						next[k][j] = true; // Remains alive
+						//System.out.println("(" + k + ", " + j + ") Remains alive");
 					}
 					else if(aliveNeighbors < 2) { // If fewer than two living neighbors
 						next[k][j] = false; // Dies of loneliness
+						//System.out.println("(" + k + ", " + j + ") Dies of loneliness");
 					}
 					else if(aliveNeighbors >= 4) { // If four or more living neighbors
 						next[k][j] = false; // Dies of overpopulation
+						//System.out.println("(" + k + ", " + j + ") Dies of overpopulation");
 					}
 				}
 				
 				else if(mirror[k][j] == false) { // If square is dead
 					if(aliveNeighbors == 2 || aliveNeighbors == 3) { // If exactly two or three living neighbors
 						next[k][j] = true; // Comes to life
+						//System.out.println("(" + k + ", " + j + ") Comes to life");
 					}
 					else { // If any other cases
 						next[k][j] = false; // Remains dead
+						//System.out.println("(" + k + ", " + j + ") Remains dead");
 					}
 				}
 				

@@ -13,9 +13,12 @@ public class Island extends JFrame implements ActionListener {
 	private JLabel markLabel, nextLabel, resetLabel;
 	private JButton markButton, nextButton, resetButton;
 	
+	private static int rows = 4, columns = 5;
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int rows = 4, columns = 4;
+		rows = 4;
+		columns = 5;
 		Island is = new Island(rows, columns, shop);
 		is.buildWindow(rows, columns);
 	}
@@ -38,8 +41,8 @@ public class Island extends JFrame implements ActionListener {
 		
 		
 		// Iterates over population and instantiates each population entry
-		for(int k = 0; k < population.length; k++) {
-			for(int j = 0; j < population.length; j++) {
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
 				population[k][j] = new JButton(String.valueOf(k) + ", " + String.valueOf(j));
 				//population[k][j].setText(String.valueOf(k) + ", " + String.valueOf(j));
 				
@@ -53,16 +56,16 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	private void enableBoard(boolean flag) {
-		for(int k = 0; k < population.length; k++) {
-			for(int j = 0; j < population.length; j++) {
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
 				population[k][j].setEnabled(flag);
 			}
 		}
 	}
 	
 	private void resetBoard() {
-		for(int k = 0; k < population.length; k++) {
-			for(int j = 0; j < population.length; j++) {
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
 				population[k][j].setBackground(Color.LIGHT_GRAY); 
 			}
 		}
@@ -103,9 +106,7 @@ public class Island extends JFrame implements ActionListener {
 		add(center, BorderLayout.CENTER);
 		
 		for(int k = 0; k < rows; k++) {
-			System.out.println("K is: " + k);
 			for(int j = 0; j < columns; j++) {
-				System.out.println("J is: " + j);
 				center.add(population[k][j]);
 			}
 		}
@@ -115,8 +116,8 @@ public class Island extends JFrame implements ActionListener {
 		resetButton.addActionListener(this);
 		
 		// Population action listener
-		for(int k = 0; k < population.length; k++) {
-			for(int j = 0; j < population.length; j++) {
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
 				population[k][j].addActionListener(this);
 			}
 		}
@@ -125,8 +126,8 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	private void displayGeneration(boolean[][] mirror) {
-		for(int k = 0; k < mirror.length; k++) {
-			for(int j = 0; j < mirror.length; j++) {
+		for(int k = 0; k < rows; k++) {
+			for(int j = 0; j < columns; j++) {
 				if(mirror[k][j] == true) {
 					population[k][j].setBackground(Color.yellow);
 				}
@@ -155,8 +156,8 @@ public class Island extends JFrame implements ActionListener {
 			markButton.setEnabled(false);
 			shop.resetMirror();
 			
-			for(int k = 0; k < population.length; k++) {
-				for(int j = 0; j < population.length; j++) {
+			for(int k = 0; k < rows; k++) {
+				for(int j = 0; j < columns; j++) {
 					if(population[k][j].getBackground() == Color.YELLOW) {
 						shop.mirror[k][j] = true;
 					}
