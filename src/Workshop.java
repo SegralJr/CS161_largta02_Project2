@@ -119,7 +119,6 @@ public class Workshop {
 		for(int k = 0; k < rows; k++) {
 			for(int j = 0; j < columns; j++) { // Nested for loop, iterate through the mirror values
 				aliveNeighbors = neighborCount(k, j);
-				System.out.println(k + ", " + j + "= " + mirror[k][j] + "with " + aliveNeighbors + " neighbors");
 				
 				if(mirror[k][j] == true) { // If square is alive
 					if(aliveNeighbors == 2 || aliveNeighbors == 3) { // If two or three living neighbors
@@ -127,11 +126,9 @@ public class Workshop {
 					}
 					else if(aliveNeighbors < 2) { // If fewer than two living neighbors
 						next[k][j] = false; // Dies of loneliness
-						System.out.println("(" + k + ", " + j + ") died of loneliness");
 					}
 					else if(aliveNeighbors >= 4) { // If four or more living neighbors
 						next[k][j] = false; // Dies of overpopulation
-						System.out.println("(" + k + ", " + j + ") died of overpopulation");
 					}
 				}
 				

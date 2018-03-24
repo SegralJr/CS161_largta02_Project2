@@ -15,8 +15,9 @@ public class Island extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Island is = new Island(4, 4, shop);
-		is.buildWindow(4, 4);
+		int rows = 4, columns = 4;
+		Island is = new Island(rows, columns, shop);
+		is.buildWindow(rows, columns);
 	}
 	
 	public Island(int rows, int columns, Workshop shop) { // Constructor
@@ -102,7 +103,9 @@ public class Island extends JFrame implements ActionListener {
 		add(center, BorderLayout.CENTER);
 		
 		for(int k = 0; k < rows; k++) {
+			System.out.println("K is: " + k);
 			for(int j = 0; j < columns; j++) {
+				System.out.println("J is: " + j);
 				center.add(population[k][j]);
 			}
 		}
