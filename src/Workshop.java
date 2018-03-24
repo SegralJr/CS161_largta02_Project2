@@ -30,8 +30,8 @@ public class Workshop {
 	
 	private boolean isAlive(int k, int j) {
 		boolean alive = false;
-		if(k < mirror.length && j < mirror.length || k >= 0 || j >= 0) {
-			if (mirror[k][j] == true || k >= 0 || j >= 0) {
+		if(k < rows && j < columns && k >= 0 && j >= 0) {
+			if (mirror[k][j] == true && k >= 0 && j >= 0) {
 				alive = true;
 			}
 		}
@@ -44,7 +44,48 @@ public class Workshop {
 	private int neighborCount(int k, int j) {
 		int count = 0;
 		
-		
+			if(k >= 1 && j >= 1) {
+				if(isAlive((k-1), (j-1)) == true || j >= 1 || k >= 1) {
+					count++;
+				}
+			}
+			if(k >= 1) {
+				if(isAlive((k-1), j) == true || j >= 0 || k >= 1) {
+					count++;
+				}
+			}
+			if(k >= 1&& j < 3) {
+				if(isAlive((k-1), j+1) == true || j >= 0 || k >= 1) {
+					count++;
+				}
+			}
+			if(j >= 1) {
+				if(isAlive(k, (j-1)) == true || j >= 1 || k >= 0) {
+					count++;
+				}
+			}
+			if(j <= 2) {
+				if(isAlive(k, j+1) == true || j >= 0 || k >= 0) {
+					count++;
+				}
+			}
+			if(k <= 2 && j >= 1) {
+				if(isAlive(k+1, (j-1)) == true || j >= 1 || k >= 0) {
+					count++;
+				}
+			}
+			if(k <= 2) {
+				if(isAlive(k+1, j) == true || j >= 0 || k >= 0) {
+					count++;
+				}
+			}
+			if(k <= 2 && j <= 2) {
+				if(isAlive(k+1, j+1) == true || j >= 0 || k >= 0) {
+					count++;
+				}
+			
+		}
+
 		
 		return count;
 	}

@@ -15,7 +15,6 @@ public class Island extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("Test");
 		Island is = new Island(4, 4, shop);
 		is.buildWindow(4, 4);
 	}
@@ -66,6 +65,8 @@ public class Island extends JFrame implements ActionListener {
 				population[k][j].setBackground(Color.LIGHT_GRAY); 
 			}
 		}
+		enableBoard(true);
+		markButton.setEnabled(true);
 	}
 	
 	public void buildWindow(int rows, int columns) {
@@ -121,8 +122,8 @@ public class Island extends JFrame implements ActionListener {
 	}
 	
 	private void displayGeneration(boolean[][] mirror) {
-		for(int k = 0; k <= mirror.length; k++) {
-			for(int j = 0; j <= mirror.length; j++) {
+		for(int k = 0; k < mirror.length; k++) {
+			for(int j = 0; j < mirror.length; j++) {
 				if(mirror[k][j] == true) {
 					population[k][j].setBackground(Color.yellow);
 				}
