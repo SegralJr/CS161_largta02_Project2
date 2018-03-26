@@ -8,7 +8,7 @@ public class Workshop {
 	String message = null; // Output of game outcome
 	boolean finished; // True if game ends
 	boolean[][] mirror; // Represents current generation, true/false for living/dead squares
-	boolean[][] allFalse = new boolean[rows][columns]; // False array used for comparison
+	boolean[][] allFalse; // False array used for comparison
 	
 	ArrayList<boolean[][]> history = new ArrayList<boolean[][]>();
 	
@@ -17,11 +17,7 @@ public class Workshop {
 	public Workshop(int r, int col) {
 		rows = r;
 		columns = col;
-		for(int k = 0; k < rows; k++) {
-			for(int j = 0; j < columns; j++) {
-				allFalse = new boolean[k][j];
-			}
-		}
+		allFalse = new boolean[rows][columns];
 	}
 	
 	public void resetMirror() {
@@ -78,15 +74,12 @@ public class Workshop {
 	}
 	
 	private boolean equals(boolean[][] arrA, boolean[][] arrB) {
-		boolean tf = false;
+		boolean tf = true;
 		
 		for(int k = 0; k < arrA.length || k < arrB.length; k++) {
 			for(int j = 0; j < arrA.length || j < arrB.length; j++) {
-				if(arrA[k][j] == arrB[k][j]) {
-					tf = true;
-					if(tf == false) { // Basically a break statement, if one false statement then whole search ends and returns false
-						k = arrA.length + arrB.length;
-					}
+				if(arrA[k][j] != arrB[k][j]) {
+					tf = false;
 				}
 			}
 		}
@@ -154,7 +147,7 @@ public class Workshop {
 				
 			}
 		}
-		if(next.equals(allFalse)) { // Extinct message
+		if(equals(next, allFalse)) { // Extinct message
 			message = "After " + history.size() + " generations life is extinct in Island";
 			mirror = next;
 			finished = true;
