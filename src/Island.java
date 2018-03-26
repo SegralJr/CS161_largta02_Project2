@@ -13,7 +13,7 @@ public class Island extends JFrame implements ActionListener {
 	private JLabel markLabel, nextLabel, resetLabel;
 	private JButton markButton, nextButton, resetButton;
 	
-	private static int rows = 4, columns = 5;
+	private static int rows, columns;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -84,7 +84,7 @@ public class Island extends JFrame implements ActionListener {
 		markLabel = new JLabel("Click for marking initial life");
 		nextLabel = new JLabel("See the next generation");
 		resetLabel = new JLabel("Reset the game");
-		northField = new JTextField("");
+		northField = new JTextField(shop.message);
 		
 		markButton = new JButton("Mark");
 		nextButton = new JButton("Next");
