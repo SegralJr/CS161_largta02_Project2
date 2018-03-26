@@ -5,7 +5,7 @@ public class Workshop {
 	
 	int rows, columns; // Grid dimensions
 	
-	String message; // Output of game outcome
+	String message = null; // Output of game outcome
 	boolean finished; // True if game ends
 	boolean[][] mirror; // Represents current generation, true/false for living/dead squares
 	boolean[][] allFalse = new boolean[rows][columns]; // False array used for comparison
