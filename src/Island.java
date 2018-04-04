@@ -21,6 +21,7 @@ public class Island extends JFrame implements ActionListener {
 		columns = 5;
 		Island is = new Island(rows, columns, shop);
 		is.buildWindow(rows, columns);
+		is.enableBoard(false);
 	}
 	
 	public Island(int rows, int columns, Workshop shop) { // Constructor
